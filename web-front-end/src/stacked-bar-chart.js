@@ -57,8 +57,8 @@ export const data = {
   ],
 };
 
-const StackBarChart = () => {
-  return <Bar options={options} data={data} />;
+const StackBarChart = (props) => {
+  return <Bar options={options} data={data} {...props} />;
 };
 
 export default StackBarChart;

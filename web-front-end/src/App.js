@@ -87,11 +87,14 @@ export const data = {
 function App() {
   return (
     <div className="App">
-      {/* <header className="App-header"></header> */}
-      {/* <body className="App-body"> */}
-      <Line className="Body-item" options={options} data={data} />
-      <StackBarChart className="Body-item test" />
-      {/* </body> */}
+      <header className="App-header">
+        <div>TR7 Coinglass Indicators</div>
+        <div>Configuration</div>
+      </header>
+      <body className="App-body">
+        <Line className="Body-item" options={options} data={data} />
+        <StackBarChart className="Body-item test" />
+      </body>
     </div>
   );
 }
