@@ -1,6 +1,7 @@
 import logo from "./logo.svg";
 import "./App.css";
-import HorizontalBarChart from "./horizontal-bar-chart";
+import HorizontalBarChart from "./component/HorizontalBarChart";
+import VerticalBarChart from "./component/VerticalBarChart";
 import StackBarChart from "./stacked-bar-chart";
 
 import {
@@ -91,9 +92,31 @@ function App() {
         <div>TR7 Coinglass Indicators</div>
         <div>Configuration</div>
       </header>
-      <body className="App-body">
-        <Line className="Body-item" options={options} data={data} />
-        <StackBarChart className="Body-item test" />
+      <body className="grid-container">
+        <div>
+          <div>Line Chart</div>
+          <div>
+            <Line className="" options={options} data={data} />
+          </div>
+        </div>
+        <div>
+          <div>Stacked Bar Chart</div>
+          <div>
+            <StackBarChart className="" />
+          </div>
+        </div>
+        <div>
+          <div>Vertical Bar Chart</div>
+          <div>
+            <VerticalBarChart className="" />
+          </div>
+        </div>
+        <div>
+          <div>Horizontal Bar Chart</div>
+          <div>
+            <HorizontalBarChart className="" />
+          </div>
+        </div>
       </body>
     </div>
   );

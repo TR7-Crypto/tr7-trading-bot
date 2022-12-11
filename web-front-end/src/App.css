@@ -15,7 +15,7 @@
 
 .App-header {
   background-color: #282c34;
-  min-height: 5vh;
+  min-height: 10%;
   display: flex;
   flex-direction: row;
   align-items: flex-start;
@@ -30,9 +30,8 @@
 .App-body {
   background-color: #e6eae9;
   min-height: 95vh;
-  min-width: 100%;
   display: flex;
-  flex-direction: row;
+  flex-flow: row wrap;
   align-items: flex-start;
   justify-content: space-around;
   align-self: center;
@@ -40,8 +39,30 @@
   color: white;
 }
 .Body-item {
-  max-width: 40%;
-  max-height: 40%;
+  max-width: 47%;
+  max-height: 47%;
+}
+
+.grid-container {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1px;
+  background-color: #e6eae9;
+  padding: 10px;
+  justify-content: space-evenly;
+  min-height: 90%;
+}
+
+.grid-container > div {
+  /* background-color: rgba(217, 247, 98, 0.8); */
+  border: 1px solid black;
+  /* text-align: center; */
+  font-size: 30px;
+  flex-flow: column;
+  justify-content: center;
 }
 
 @keyframes App-logo-spin {
