@@ -16,7 +16,7 @@ function App() {
           <VolumeChart />
         </div>
         <div className="grid-item">
-          <FundingRateChart timeFrame={5000} />
+          <FundingRateChart timeFrame={10000} />
         </div>
         <div className="grid-item">
           <OpenInterestChart />

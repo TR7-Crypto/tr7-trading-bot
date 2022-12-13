@@ -1,5 +1,5 @@
 import fetch from "node-fetch";
-import axios from "axios";
+// import axios from "axios";
 
 const COINGLASS_API_KEY = "640ee594b3de4f8e97a7f95aaceec7bf";
 const COINGLASS_API_URL = "https://open-api.coinglass.com/public/v2";
@@ -44,7 +44,7 @@ const fetchFundingRate = () => {
 };
 // fetchFundingRate();
 var urlFundingRateHistoryUsd = `${COINGLASS_API_URL}/${FUNDING_USD_HISTORY}?symbol=${symbol}&time_type=${timeType}`;
-const fetchFundingRateHistoryUsd = () => {
+export const fetchFundingRateHistoryUsd = () => {
   fetch(urlFundingRateHistoryUsd, options)
     .then((response) => response.json())
     .then((response) => {
@@ -58,8 +58,8 @@ const fetchFundingRateHistoryUsd = () => {
 // console.log(JSON.stringify(response.data));
 
 const urlOpenInterest = `${COINGLASS_API_URL}/${OPEN_INTEREST}?symbol=${symbol}`;
-var openInterestData = await axios.get(urlOpenInterest, options);
-console.log(JSON.stringify(openInterestData.data));
+// var openInterestData = await axios.get(urlOpenInterest, options);
+// console.log(JSON.stringify(openInterestData.data));
 
 const fetchingCoinglassData = async () => {
   // try {
