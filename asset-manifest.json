@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/static/css/main.3d9d3ead.css",
-    "main.js": "/static/js/main.7fb360f5.js",
-    "static/js/787.22edae46.chunk.js": "/static/js/787.22edae46.chunk.js",
-    "index.html": "/index.html",
-    "main.3d9d3ead.css.map": "/static/css/main.3d9d3ead.css.map",
-    "main.7fb360f5.js.map": "/static/js/main.7fb360f5.js.map",
-    "787.22edae46.chunk.js.map": "/static/js/787.22edae46.chunk.js.map"
+    "main.css": "/tr7-trading-bot/static/css/main.3d9d3ead.css",
+    "main.js": "/tr7-trading-bot/static/js/main.cbd9b801.js",
+    "static/js/787.22edae46.chunk.js": "/tr7-trading-bot/static/js/787.22edae46.chunk.js",
+    "index.html": "/tr7-trading-bot/index.html",
+    "main.3d9d3ead.css.map": "/tr7-trading-bot/static/css/main.3d9d3ead.css.map",
+    "main.cbd9b801.js.map": "/tr7-trading-bot/static/js/main.cbd9b801.js.map",
+    "787.22edae46.chunk.js.map": "/tr7-trading-bot/static/js/787.22edae46.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.3d9d3ead.css",
-    "static/js/main.7fb360f5.js"
+    "static/js/main.cbd9b801.js"
   ]
 }
