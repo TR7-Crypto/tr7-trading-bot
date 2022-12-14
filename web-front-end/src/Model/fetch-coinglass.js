@@ -1,6 +1,36 @@
 import fetch from "node-fetch";
 import axios from "axios";
 
+export const symbolList = [
+  "BTC",
+  "ETH",
+  "BNB",
+  "XRP",
+  "LTC",
+  "DOGE",
+  "SOL",
+  "DOT",
+  "ADA",
+  "MATIC",
+  "ETC",
+  "LINK",
+  "APE",
+  "BCH",
+  "TRX",
+  "EOS",
+  "FIL",
+  "CHZ",
+  "OP",
+  "AXS",
+  "AVAX",
+  "FTM",
+  "ATOM",
+  "DYDX",
+  "NEAR",
+  "APT",
+];
+export const timeFrameList = ["m1", "m5", "h8"];
+
 const COINGLASS_API_KEY = "640ee594b3de4f8e97a7f95aaceec7bf";
 const COINGLASS_API_URL = "https://open-api.coinglass.com/public/v2";
 
@@ -42,8 +72,6 @@ const fetchFundingRate = () => {
 export const fetchFundingRateHistoryUsd = async (symbol, timeFrame) => {
   var urlFundingRateHistoryUsd = `${COINGLASS_API_URL}/${FUNDING_USD_HISTORY}?symbol=${symbol}&time_type=${timeFrame}`;
 
-  // console.log("symbol", symbol, "timeFrame", timeFrame);
-
   const options = {
     method: "GET",
     headers: {
@@ -62,7 +90,7 @@ export const fetchFundingRateHistoryUsd = async (symbol, timeFrame) => {
     })
     .catch((err) => console.error(err));
   const a = await data;
-  console.log("a", a);
+
   return a;
 };
 // fetchFundingRateHistoryUsd();
@@ -74,19 +102,5 @@ export const fetchFundingRateHistoryUsd = async (symbol, timeFrame) => {
 // var openInterestData = await axios.get(urlOpenInterest, options);
 // console.log(JSON.stringify(openInterestData.data));
 
-const fetchingCoinglassData = async () => {
-  // try {
-  //   const response = await axios.get(
-  //     `https://api.github.com/users/eunit99/repos`
-  //   );
-  //   setData(response.data);
-  //   setError(null);
-  //   console.log(data);
-  // } catch (err) {
-  //   setError(err.message);
-  //   setData(null);
-  // } finally {
-  //   setLoading(false);
-  // }
-};
+const fetchingCoinglassData = async () => {};
 export default fetchingCoinglassData;

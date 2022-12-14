@@ -35,13 +35,13 @@ const FundingRateTable = (props) => {
             return (
               <tr key={index}>
                 <td>{date.toLocaleString()}</td>
-                <td>{element.binance.toPrecision(3)}%</td>
-                <td>{element.bybit.toPrecision(3)}%</td>
-                <td>{element.okx.toPrecision(3)}%</td>
-                <td>{element.huobi.toPrecision(3)}%</td>
-                <td>{element.gate.toPrecision(3)}%</td>
-                <td>{element.bitget.toPrecision(3)}%</td>
-                <td>{element.coinex.toPrecision(3)}%</td>
+                <td>{element.binance.toFixed(4)}%</td>
+                <td>{element.bybit.toFixed(4)}%</td>
+                <td>{element.okx.toFixed(4)}%</td>
+                <td>{element.huobi.toFixed(4)}%</td>
+                <td>{element.gate.toFixed(4)}%</td>
+                <td>{element.bitget.toFixed(4)}%</td>
+                <td>{element.coinex.toFixed(4)}%</td>
               </tr>
             );
           })}
@@ -55,64 +55,63 @@ const FundingRateChart = (props) => {
   const [fundingRate, $fundingRate] = useState(null);
   const [intervalId, $intervalId] = useState(0);
   const timeLive = props.timeLive;
+  const symbol = props.symbol;
+  const timeFrame = props.timeFrame;
+
+  async function fetchingFundingRate(symbol, timeFrame) {
+    var curFundRateHistory = [];
+
+    var response = await fetchFundingRateHistoryUsd(symbol, timeFrame);
+    const data = response.data;
+    const dataMap = data.frDataMap;
+    var iCount = 0;
+    if (data.dateList.length > 0) {
+      for (
+        let index = data.dateList.length - 1;
+        index < data.dateList.length;
+        index--
+      ) {
+        const date = data.dateList[index];
+        const binance = dataMap.Binance[index];
+        const bitget = dataMap.Bitget[index];
+        const bybit = dataMap.Bybit[index];
+        const coinex = dataMap.CoinEx[index];
+        const gate = dataMap.Gate[index];
+        const huobi = dataMap.Huobi[index];
+        const okx = dataMap.OKX ? dataMap.OKX[index] : 0;
+        const dataRow = {
+          date,
+          binance,
+          bitget,
+          bybit,
+          coinex,
+          gate,
+          huobi,
+          okx,
+        };
+        curFundRateHistory[iCount] = dataRow;
+        iCount++;
+        if (iCount >= 20) {
+          break;
+        }
+      }
+    }
+
+    return curFundRateHistory;
+  }
 
   useEffect(() => {
-    if (intervalId !== 0) {
-      clearInterval(intervalId);
-    }
+    fetchingFundingRate(symbol, timeFrame).then((response) =>
+      $fundingRate(response)
+    );
     const id = setInterval(() => {
-      async function fetchingFundingRate() {
-        var curFundRateHistory = [];
-
-        var response = await fetchFundingRateHistoryUsd(
-          props.symbol,
-          props.timeFrame
-        );
-        // console.log("response", response);
-        const data = response.data;
-        console.log("data", data);
-        const dataMap = data.frDataMap;
-        var iCount = 0;
-        if (data.dateList.length > 0) {
-          for (
-            let index = data.dateList.length - 1;
-            index < data.dateList.length;
-            index--
-          ) {
-            const date = data.dateList[index];
-            const binance = dataMap.Binance[index];
-            const bitget = dataMap.Bitget[index];
-            const bybit = dataMap.Bybit[index];
-            const coinex = dataMap.CoinEx[index];
-            const gate = dataMap.Gate[index];
-            const huobi = dataMap.Huobi[index];
-            const okx = dataMap.OKX ? dataMap.OKX[index] : 0;
-            const dataRow = {
-              date,
-              binance,
-              bitget,
-              bybit,
-              coinex,
-              gate,
-              huobi,
-              okx,
-            };
-            curFundRateHistory[iCount] = dataRow;
-            iCount++;
-            if (iCount >= 20) {
-              break;
-            }
-          }
-        }
-        console.log("curFundRateHistory", curFundRateHistory);
-        return curFundRateHistory;
-      }
-
-      fetchingFundingRate().then((response) => $fundingRate(response));
+      fetchingFundingRate(symbol, timeFrame).then((response) =>
+        $fundingRate(response)
+      );
     }, timeLive);
-    $intervalId(id);
+
     return () => clearInterval(id);
-  }, [timeLive]);
+  }, [timeLive, symbol, timeFrame]);
 
   return (
     <div className="indicator-container">
