@@ -4,7 +4,7 @@
 
 .App-header {
   background-color: #282c34;
-  height: 5vh;
+  height: 6vh;
   padding: 0 10px;
   display: flex;
   flex-direction: row;
@@ -13,6 +13,13 @@
   justify-items: center;
   font-size: calc(10px + 2vmin);
   color: white;
+}
+.header-right {
+  display: flex;
+  justify-content: space-between;
+}
+.header-gap {
+  margin-left: 5px;
 }
 
 .grid-container {
@@ -24,8 +31,8 @@
   grid-auto-rows: 1fr;
   gap: 0px;
   background-color: #367d6b;
-  height: 95vh;
-  max-height: 95vh;
+  height: 94vh;
+  max-height: 94vh;
   place-items: stretch;
 }
 .responsive-canvas {
@@ -65,4 +72,9 @@
 .table-responsive {
   height: 100%;
   width: 100%;
+}
+
+.table-header {
+  position: sticky;
+  top: 0;
 }

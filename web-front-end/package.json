@@ -2,6 +2,8 @@
   "name": "front-end",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://tr7-crypto.github.io/tr7-trading-bot/",
+  "proxy": "https://open-api.coinglass.com",
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
@@ -9,6 +11,7 @@
     "axios": "^1.2.1",
     "bootstrap": "^5.2.3",
     "chart.js": "^4.0.1",
+    "gh-pages": "^4.0.0",
     "node-fetch": "^2.6.7",
     "react": "^18.2.0",
     "react-bootstrap": "^2.7.0",
@@ -21,6 +24,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
+    "deploy": "npm run build && gh-pages -d build",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {

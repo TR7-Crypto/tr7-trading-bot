@@ -6,44 +6,6 @@ import { fetchFundingRateHistoryUsd } from "../Model/fetch-coinglass";
 /** periodically fetch funding rate and display
  *
  */
-const labels = ["January", "February", "March", "April", "May", "June", "July"];
-
-const data = {
-  labels,
-  datasets: [
-    {
-      label: "Dataset 1",
-      data: labels.map(() => faker.datatype.number({ min: 0, max: 1000 })),
-      backgroundColor: "rgba(255, 99, 132, 0.5)",
-    },
-    {
-      label: "Dataset 2",
-      data: labels.map(() => faker.datatype.number({ min: 0, max: 1000 })),
-      backgroundColor: "rgba(53, 162, 235, 0.5)",
-    },
-  ],
-};
-
-const json = {
-  data: {
-    available: {
-      profileOne: {
-        a: 14,
-        b: 14,
-        c: 0,
-        d: 0,
-        e: 18,
-      },
-      profileTwo: {
-        a: 13,
-        b: 9,
-        c: 0,
-        d: 0,
-        e: 18,
-      },
-    },
-  },
-};
 const header = [
   "Time",
   "Binance",
@@ -54,11 +16,13 @@ const header = [
   "Bitget",
   "CoinEx",
 ];
-const FundingRateTable = () => {
+const FundingRateTable = (props) => {
+  const fundingRateData = props.fundingRateData;
+
   return (
     <div className="table-responsive">
       <Table responsive variant="light" size="sm" striped>
-        <thead>
+        <thead className="table-header">
           <tr>
             {header.map((item, index) => (
               <th key={index}>{item}</th>
@@ -66,82 +30,21 @@ const FundingRateTable = () => {
           </tr>
         </thead>
         <tbody>
-          <tr>
-            {Array.from({ length: 8 }).map((_, index) => (
-              <td key={index}>Table cell {index}</td>
-            ))}
-          </tr>
-          <tr>
-            {Array.from({ length: 8 }).map((_, index) => (
-              <td key={index}>Table cell {index}</td>
-            ))}
-          </tr>
-          <tr>
-            {Array.from({ length: 8 }).map((_, index) => (
-              <td key={index}>Table cell {index}</td>
-            ))}
-          </tr>
-
-          <tr>
-            {Array.from({ length: 8 }).map((_, index) => (
-              <td key={index}>Table cell {index}</td>
-            ))}
-          </tr>
-          <tr>
-            {Array.from({ length: 8 }).map((_, index) => (
-              <td key={index}>Table cell {index}</td>
-            ))}
-          </tr>
-          <tr>
-            {Array.from({ length: 8 }).map((_, index) => (
-              <td key={index}>Table cell {index}</td>
-            ))}
-          </tr>
-          <tr>
-            {Array.from({ length: 8 }).map((_, index) => (
-              <td key={index}>Table cell {index}</td>
-            ))}
-          </tr>
-          <tr>
-            {Array.from({ length: 8 }).map((_, index) => (
-              <td key={index}>Table cell {index}</td>
-            ))}
-          </tr>
-          <tr>
-            {Array.from({ length: 8 }).map((_, index) => (
-              <td key={index}>Table cell {index}</td>
-            ))}
-          </tr>
-          <tr>
-            {Array.from({ length: 8 }).map((_, index) => (
-              <td key={index}>Table cell {index}</td>
-            ))}
-          </tr>
-          <tr>
-            {Array.from({ length: 8 }).map((_, index) => (
-              <td key={index}>Table cell {index}</td>
-            ))}
-          </tr>
-          <tr>
-            {Array.from({ length: 8 }).map((_, index) => (
-              <td key={index}>Table cell {index}</td>
-            ))}
-          </tr>
-          <tr>
-            {Array.from({ length: 8 }).map((_, index) => (
-              <td key={index}>Table cell {index}</td>
-            ))}
-          </tr>
-          <tr>
-            {Array.from({ length: 8 }).map((_, index) => (
-              <td key={index}>Table cell {index}</td>
-            ))}
-          </tr>
-          <tr>
-            {Array.from({ length: 8 }).map((_, index) => (
-              <td key={index}>Table cell {index}</td>
-            ))}
-          </tr>
+          {fundingRateData.map((element, index) => {
+            const date = new Date(element.date);
+            return (
+              <tr key={index}>
+                <td>{date.toLocaleString()}</td>
+                <td>{element.binance.toPrecision(3)}%</td>
+                <td>{element.bybit.toPrecision(3)}%</td>
+                <td>{element.okx.toPrecision(3)}%</td>
+                <td>{element.huobi.toPrecision(3)}%</td>
+                <td>{element.gate.toPrecision(3)}%</td>
+                <td>{element.bitget.toPrecision(3)}%</td>
+                <td>{element.coinex.toPrecision(3)}%</td>
+              </tr>
+            );
+          })}
         </tbody>
       </Table>
     </div>
@@ -149,9 +52,9 @@ const FundingRateTable = () => {
 };
 
 const FundingRateChart = (props) => {
-  const [fundingRate, $fundingRate] = useState(data);
+  const [fundingRate, $fundingRate] = useState(null);
   const [intervalId, $intervalId] = useState(0);
-  const timeFrame = props.timeFrame;
+  const timeLive = props.timeLive;
 
   useEffect(() => {
     if (intervalId !== 0) {
@@ -159,22 +62,67 @@ const FundingRateChart = (props) => {
     }
     const id = setInterval(() => {
       async function fetchingFundingRate() {
-        const data = await fetchFundingRateHistoryUsd();
-        console.log("fundRate data", data);
-        return data;
+        var curFundRateHistory = [];
+
+        var response = await fetchFundingRateHistoryUsd(
+          props.symbol,
+          props.timeFrame
+        );
+        // console.log("response", response);
+        const data = response.data;
+        console.log("data", data);
+        const dataMap = data.frDataMap;
+        var iCount = 0;
+        if (data.dateList.length > 0) {
+          for (
+            let index = data.dateList.length - 1;
+            index < data.dateList.length;
+            index--
+          ) {
+            const date = data.dateList[index];
+            const binance = dataMap.Binance[index];
+            const bitget = dataMap.Bitget[index];
+            const bybit = dataMap.Bybit[index];
+            const coinex = dataMap.CoinEx[index];
+            const gate = dataMap.Gate[index];
+            const huobi = dataMap.Huobi[index];
+            const okx = dataMap.OKX ? dataMap.OKX[index] : 0;
+            const dataRow = {
+              date,
+              binance,
+              bitget,
+              bybit,
+              coinex,
+              gate,
+              huobi,
+              okx,
+            };
+            curFundRateHistory[iCount] = dataRow;
+            iCount++;
+            if (iCount >= 20) {
+              break;
+            }
+          }
+        }
+        console.log("curFundRateHistory", curFundRateHistory);
+        return curFundRateHistory;
       }
+
       fetchingFundingRate().then((response) => $fundingRate(response));
-    }, timeFrame);
+    }, timeLive);
     $intervalId(id);
     return () => clearInterval(id);
-  }, [timeFrame]);
-  console.log("timeFrame", timeFrame);
+  }, [timeLive]);
 
   return (
     <div className="indicator-container">
       <div className="indicator-label">Funding Rate</div>
       <div className="indicator-body">
-        <FundingRateTable />
+        {fundingRate !== null ? (
+          <FundingRateTable fundingRateData={fundingRate} />
+        ) : (
+          <></>
+        )}
       </div>
     </div>
   );
