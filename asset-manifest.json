@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/tr7-trading-bot/static/css/main.63ba164d.css",
-    "main.js": "/tr7-trading-bot/static/js/main.d463dfbf.js",
+    "main.css": "/tr7-trading-bot/static/css/main.2d9e86ed.css",
+    "main.js": "/tr7-trading-bot/static/js/main.e21f081a.js",
     "static/js/787.22edae46.chunk.js": "/tr7-trading-bot/static/js/787.22edae46.chunk.js",
     "index.html": "/tr7-trading-bot/index.html",
-    "main.63ba164d.css.map": "/tr7-trading-bot/static/css/main.63ba164d.css.map",
-    "main.d463dfbf.js.map": "/tr7-trading-bot/static/js/main.d463dfbf.js.map",
+    "main.2d9e86ed.css.map": "/tr7-trading-bot/static/css/main.2d9e86ed.css.map",
+    "main.e21f081a.js.map": "/tr7-trading-bot/static/js/main.e21f081a.js.map",
     "787.22edae46.chunk.js.map": "/tr7-trading-bot/static/js/787.22edae46.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.63ba164d.css",
-    "static/js/main.d463dfbf.js"
+    "static/css/main.2d9e86ed.css",
+    "static/js/main.e21f081a.js"
   ]
 }
