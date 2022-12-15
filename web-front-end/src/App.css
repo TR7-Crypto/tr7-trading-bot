@@ -60,13 +60,19 @@
   width: 100%;
 }
 .indicator-label {
-  height: 6%;
+  height: 7%;
   background-color: #f1d140;
   border-radius: 4px;
   font-weight: 800;
+  padding: 10px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  justify-items: center;
 }
 .indicator-body {
-  height: 44vh;
+  height: 43vh;
   width: 100%;
   padding: 2px;
 }
@@ -82,6 +88,10 @@
 }
 
 .dropdown-select {
-  max-height: 45vh;
+  height: 45vh;
   overflow: scroll;
+}
+
+.table-text {
+  color: aqua;
 }

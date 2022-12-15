@@ -1,6 +1,4 @@
 import React, { useEffect, useState } from "react";
-import VerticalBarChart from "../component/VerticalBarChart";
-import { faker } from "@faker-js/faker";
 import Table from "react-bootstrap/Table";
 import { fetchFundingRateHistoryUsd } from "../Model/fetch-coinglass";
 /** periodically fetch funding rate and display
@@ -35,13 +33,83 @@ const FundingRateTable = (props) => {
             return (
               <tr key={index}>
                 <td>{date.toLocaleString()}</td>
-                <td>{element.binance.toFixed(4)}%</td>
-                <td>{element.bybit.toFixed(4)}%</td>
-                <td>{element.okx.toFixed(4)}%</td>
-                <td>{element.huobi.toFixed(4)}%</td>
-                <td>{element.gate.toFixed(4)}%</td>
-                <td>{element.bitget.toFixed(4)}%</td>
-                <td>{element.coinex.toFixed(4)}%</td>
+                <td
+                  className={
+                    element.binance > 0.01
+                      ? "text-danger"
+                      : element.binance < 0.01
+                      ? "text-primary"
+                      : ""
+                  }
+                >
+                  {element.binance.toFixed(4)}%
+                </td>
+                <td
+                  className={
+                    element.bybit > 0.01
+                      ? "text-danger"
+                      : element.bybit < 0.01
+                      ? "text-primary"
+                      : ""
+                  }
+                >
+                  {element.bybit.toFixed(4)}%
+                </td>
+                <td
+                  className={
+                    element.okx > 0.01
+                      ? "text-danger"
+                      : element.okx < 0.01
+                      ? "text-primary"
+                      : ""
+                  }
+                >
+                  {element.okx.toFixed(4)}%
+                </td>
+                <td
+                  className={
+                    element.huobi > 0.01
+                      ? "text-danger"
+                      : element.huobi < 0.01
+                      ? "text-primary"
+                      : ""
+                  }
+                >
+                  {element.huobi.toFixed(4)}%
+                </td>
+                <td
+                  className={
+                    element.gate > 0.01
+                      ? "text-danger"
+                      : element.gate < 0.01
+                      ? "text-primary"
+                      : ""
+                  }
+                >
+                  {element.gate.toFixed(4)}%
+                </td>
+                <td
+                  className={
+                    element.bitget > 0.01
+                      ? "text-danger"
+                      : element.bitget < 0.01
+                      ? "text-primary"
+                      : ""
+                  }
+                >
+                  {element.bitget.toFixed(4)}%
+                </td>
+                <td
+                  className={
+                    element.coinex > 0.01
+                      ? "text-danger"
+                      : element.coinex < 0.01
+                      ? "text-primary"
+                      : ""
+                  }
+                >
+                  {element.coinex.toFixed(4)}%
+                </td>
               </tr>
             );
           })}

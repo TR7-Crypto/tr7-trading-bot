@@ -3,14 +3,14 @@ import VolumeChart from "./View/VolumeChart";
 import FundingRateChart from "./View/FundingRateChart";
 import OpenInterestChart from "./View/OpenInterestChart";
 import LongShortRatioChart from "./View/LongShortRatioChart";
-import { Dropdown, DropdownButton } from "react-bootstrap";
+import { Dropdown, DropdownButton, Form } from "react-bootstrap";
 import { useState } from "react";
 import { symbolList, timeFrameList } from "./Model/fetch-coinglass";
 import DropdownMenu from "react-bootstrap/esm/DropdownMenu";
 
 const NavigationBar = (props) => {
-  const [symbol, $symbol] = useState("symbol");
-  const [time, $time] = useState("time");
+  const [symbol, $symbol] = useState(props.symbol);
+  const [time, $time] = useState(props.timeFrame);
   function handleTimeFrameSelect(selection) {
     $time(selection);
     props.timeFrameSelectHandler(selection);
@@ -18,6 +18,10 @@ const NavigationBar = (props) => {
   function handleSymbolListSelect(selection) {
     $symbol(selection);
     props.symbolSelectHandler(selection);
+  }
+  function handleSymbolListSelectMenu(event) {
+    $symbol(event.target.value);
+    props.symbolSelectHandler(event.target.value);
   }
 
   return (
@@ -29,6 +33,8 @@ const NavigationBar = (props) => {
           id="dropdown-symbol"
           title={symbol}
           size="sm"
+          variant="secondary"
+          menuVariant="dark"
           onSelect={handleSymbolListSelect}
         >
           {symbolList.map((item, index) => {
@@ -44,6 +50,8 @@ const NavigationBar = (props) => {
           id="dropdown-timeframe"
           title={time}
           size="sm"
+          variant="secondary"
+          menuVariant="dark"
           onSelect={handleTimeFrameSelect}
         >
           {timeFrameList.map((item, index) => {
@@ -73,15 +81,22 @@ function App() {
     <div className="App">
       <NavigationBar
         symbol={symbol}
+        timeFrame={timeFrame}
         symbolSelectHandler={symbolSelectHandler}
         timeFrameSelectHandler={timeFrameSelectHandler}
       />
       <div className="grid-container">
         <div className="grid-item">
-          <OpenInterestChart />
+          <iframe
+            id="inlineFrameExample"
+            title="Coinglass website"
+            width="100%"
+            height="100%"
+            src="https://www.coinglass.com/BitcoinOpenInterest"
+          ></iframe>
         </div>
         <div className="grid-item">
-          <FundingRateChart
+          <OpenInterestChart
             timeLive={10000}
             symbol={symbol}
             timeFrame={timeFrame}
@@ -91,7 +106,11 @@ function App() {
           <LongShortRatioChart />
         </div>
         <div className="grid-item">
-          <VolumeChart />
+          <FundingRateChart
+            timeLive={10000}
+            symbol={symbol}
+            timeFrame={timeFrame}
+          />
         </div>
       </div>
     </div>
