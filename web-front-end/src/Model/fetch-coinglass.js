@@ -1,5 +1,7 @@
 // import fetch from "node-fetch";
 // import axios from "axios";
+export const timeFrameDisplayDate = ["h1", "h4", "h8", "h12", "h24", "all"];
+
 export const coinglassExchangeList = [
   "Binance",
   "Bitmex",
@@ -46,7 +48,18 @@ export const symbolList = [
   "1000SHIB",
   "1000LUNA",
 ];
-export const timeFrameList = ["m1", "m5", "m15", "h1", "h4", "h8", "h12"];
+export const timeFrameList = [
+  "m1",
+  "m5",
+  "m15",
+  "m30",
+  "h1",
+  "h4",
+  "h8",
+  "h12",
+  "h24",
+  "all",
+];
 
 const COINGLASS_API_KEY = "640ee594b3de4f8e97a7f95aaceec7bf";
 const COINGLASS_API_URL =
@@ -56,6 +69,8 @@ const FUNDING_RATE = "funding";
 const FUNDING_USD_HISTORY = "funding_usd_history";
 const OPEN_INTEREST = "open_interest";
 const OPEN_INTEREST_HISTORY = "open_interest_history";
+const LONG_SHORT_HISTORY = "long_short_history";
+const LONG_SHORT = "long_short";
 
 const options = {
   method: "GET",
@@ -125,6 +140,48 @@ export const fetchOpenInterestHistoryUsd = async (symbol, timeFrame) => {
       return response;
     })
     .catch((err) => console.error(err));
+  const json = await data;
+
+  return json;
+};
+
+export const fetchLongShortRatioHistory = async (symbol, timeFrame) => {
+  var urlLongShortHistory = `${COINGLASS_API_URL}/${LONG_SHORT_HISTORY}?time_type=${timeFrame}&symbol=${symbol}`;
+  // console.log("production urlOpenInterest", urlOpenInterest);
+  if (process.env.NODE_ENV !== "production") {
+    urlLongShortHistory = `/public/v2/${LONG_SHORT_HISTORY}?time_type=${timeFrame}&symbol=${symbol}`;
+  }
+  // console.log("urlOpenInterest", urlOpenInterest);
+
+  const data = window
+    .fetch(urlLongShortHistory, options)
+    .then((response) => response.json())
+    .then((response) => {
+      return response;
+    })
+    .catch((err) => console.error(err));
+
+  const json = await data;
+
+  return json;
+};
+
+export const fetchExchangeShortRatio = async (symbol, timeFrame) => {
+  var urlLongShortHistory = `${COINGLASS_API_URL}/${LONG_SHORT}?time_type=${timeFrame}&symbol=${symbol}`;
+  // console.log("production urlOpenInterest", urlOpenInterest);
+  if (process.env.NODE_ENV !== "production") {
+    urlLongShortHistory = `/public/v2/${LONG_SHORT}?time_type=${timeFrame}&symbol=${symbol}`;
+  }
+  // console.log("urlOpenInterest", urlOpenInterest);
+
+  const data = window
+    .fetch(urlLongShortHistory, options)
+    .then((response) => response.json())
+    .then((response) => {
+      return response;
+    })
+    .catch((err) => console.error(err));
+
   const json = await data;
 
   return json;

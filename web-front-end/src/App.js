@@ -69,7 +69,7 @@ const NavigationBar = (props) => {
 
 function App() {
   const [symbol, $symbol] = useState("BTC");
-  const [timeFrame, $timeFrame] = useState("m1");
+  const [timeFrame, $timeFrame] = useState("m5");
   function symbolSelectHandler(symbol) {
     $symbol(symbol);
   }
@@ -92,6 +92,7 @@ function App() {
             title="Coinglass website"
             width="100%"
             height="100%"
+            // src="https://www.binance.com/en"
             src="https://www.coinglass.com/BitcoinOpenInterest"
           ></iframe>
         </div>
@@ -103,7 +104,11 @@ function App() {
           />
         </div>
         <div className="grid-item">
-          <LongShortRatioChart />
+          <LongShortRatioChart
+            timeLive={10000}
+            symbol={symbol}
+            timeFrame={timeFrame}
+          />
         </div>
         <div className="grid-item">
           <FundingRateChart

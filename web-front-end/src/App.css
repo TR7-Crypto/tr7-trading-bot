@@ -37,12 +37,7 @@
   max-height: 95vh;
   place-items: stretch;
 }
-.responsive-canvas {
-  background-color: bisque;
-  position: relative;
-  width: 48vw;
-  height: 43vh;
-}
+
 .grid-container > .grid-item {
   background-color: whitesmoke;
   border: 1px solid black;
@@ -73,10 +68,15 @@
 }
 .indicator-body {
   height: 43vh;
-  width: 100%;
+  width: 98%;
   padding: 2px;
 }
-
+.responsive-canvas {
+  background-color: bisque;
+  position: relative;
+  width: 48vw;
+  height: 43vh;
+}
 .table-responsive {
   height: 100%;
   width: 100%;

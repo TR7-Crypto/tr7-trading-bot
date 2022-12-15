@@ -3,6 +3,7 @@ import { useState } from "react";
 import {
   coinglassExchangeList,
   fetchOpenInterestHistoryUsd,
+  timeFrameDisplayDate,
 } from "../Model/fetch-coinglass";
 import { Form, Dropdown, DropdownButton } from "react-bootstrap";
 
@@ -28,7 +29,6 @@ ChartJS.register(
   Legend
 );
 const MAX_NUMBER_POINT_OI = 30;
-const timeFrameDisplayDate = ["h1", "h4", "h8", "h12"];
 const OpenInterestHistoryChart = (props) => {
   var displayDate = false;
   if (timeFrameDisplayDate.includes(props.timeFrame)) {
