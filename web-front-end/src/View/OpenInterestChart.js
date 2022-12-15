@@ -83,9 +83,13 @@ const OpenInterestHistoryChart = (props) => {
   dateList.map((item) => {
     let date = new Date(item);
     if (displayDate) {
-      date = `${date.getDate()}, ${date.getHours()}:${date.getMinutes()}`;
+      date = `${String(date.getDate()).padStart(2, "0")}, ${String(
+        date.getHours()
+      ).padStart(2, "0")}:${String(date.getMinutes()).padStart(2, "0")}`;
     } else {
-      date = `${date.getHours()}:${date.getMinutes()}`;
+      date = `${String(date.getHours()).padStart(2, "0")}:${String(
+        date.getMinutes()
+      ).padStart(2, "0")}`;
     }
     return chartTimeList.push(date);
   });
