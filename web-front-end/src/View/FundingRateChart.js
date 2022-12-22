@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from "react";
 import Table from "react-bootstrap/Table";
-import { fetchFundingRateHistoryUsd } from "../Model/fetch-coinglass";
+import {
+  fetchFundingRateHistoryUsd,
+  timeFrameDisplayDate,
+} from "../Model/fetch-coinglass";
 /** periodically fetch funding rate and display
  *
  */
@@ -16,6 +19,10 @@ const header = [
 ];
 const FundingRateTable = (props) => {
   const fundingRateData = props.fundingRateData;
+  var displayDate = false;
+  if (timeFrameDisplayDate.includes(props.timeFrame)) {
+    displayDate = true;
+  }
 
   return (
     <div className="table-responsive">
@@ -29,10 +36,22 @@ const FundingRateTable = (props) => {
         </thead>
         <tbody>
           {fundingRateData.map((element, index) => {
-            const date = new Date(element.date);
+            let date = new Date(element.date);
+            if (displayDate) {
+              date = `${String(date.getDate()).padStart(2, "0")}, ${String(
+                date.getHours()
+              ).padStart(2, "0")}:${String(date.getMinutes()).padStart(
+                2,
+                "0"
+              )}`;
+            } else {
+              date = `${String(date.getHours()).padStart(2, "0")}:${String(
+                date.getMinutes()
+              ).padStart(2, "0")}`;
+            }
             return (
               <tr key={index}>
-                <td>{date.toLocaleString()}</td>
+                <td>{date}</td>
                 <td
                   className={
                     element.binance > 0.01
@@ -186,7 +205,10 @@ const FundingRateChart = (props) => {
       <div className="indicator-label">Funding Rate</div>
       <div className="indicator-body">
         {fundingRate !== null ? (
-          <FundingRateTable fundingRateData={fundingRate} />
+          <FundingRateTable
+            fundingRateData={fundingRate}
+            timeFrame={timeFrame}
+          />
         ) : (
           <></>
         )}
